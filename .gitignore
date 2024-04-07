@@ -51,3 +51,5 @@ rsconnect/
 latex_files/
 
 .venv
+
+desktop.ini
