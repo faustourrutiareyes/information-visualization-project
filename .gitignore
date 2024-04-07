@@ -60,4 +60,4 @@ latex_files/project-tex/*
 
 .venv
 
-desktop.ini
+*.ini
