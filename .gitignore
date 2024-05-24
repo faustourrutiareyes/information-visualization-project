@@ -59,6 +59,7 @@ latex_files/project-tex/*
 !latex_files/project-tex/*.tex
 
 latex_files/final-project/*
+!latex_files/final-project/
 # But don't ignore .tex files
 !latex_files/final-project/*.tex
 !latex_files/final-project/*.pdf

@@ -1,0 +1,149 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[a4paper, margin = 1in]{geometry}
+\usepackage{apacite}
+\usepackage{graphicx}
+\usepackage[font=scriptsize,labelfont=bf]{caption}
+\usepackage[hyphens,spaces,obeyspaces]{url}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{CJKutf8}
+\linespread{1.25}
+
+\title{\textbf{A Study of The Relationship Between Screen Time And Life Satisfaction of Different Age Groups In Taiwan}}
+\author{{\small Fausto Urrutia (B11303091) \and \small Chintara Sahelangi (B12303097) \and \small Yanisa Saengcharoensuklert (B11303085)}}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+
+\section{Methodology}
+
+\subsection{Data}
+\subsubsection{Data Collection}
+
+%Identify the data source and describe the data collection process. Include the data collection period, the data collection method, and the data collection instrument.
+\par The data is collected from the Center for Survey Research, RCHSS, Academia Sinica and was provided to us in various data formats. The data to be used is the Digital Development Survey data which has been collected from 2002 to 2023.
+For the purposes of this research question we will use the data provided for 2022 and 2023. This is because the data for 2022 and 2023 is the most recent data available and will provide the most up to date information on the relationship between screen time and mental well-being among age-groups.
+\par Along with the relevant data, the original questionnaire used by the research was provided to us for use as reference (Where each question is one variable in the dataset). Therefore, we will first declare which questions from the questionnaire are the most relevant to our research question.
+\par From the questionnaire, the questions most relevant to the research question are as follows (translated from Chinese):
+\begin{itemize}
+    \item 4. How old are you? {\footnotesize(In ranges)}
+    \item 7. How  many  days  a  week  do  you  use  the  Internet? {\footnotesize(In categories)}
+    \item 33.  If  0  points  means  very  dissatisfied  and  10  points  means  very  satisfied,  how  would  you  rate  your  current  life?
+\end{itemize}
+\par Hereafter, we will only refer to this questions as variables in the dataset, named by our research group.
+The questions are renamed as variables respectively as follows: \texttt{age\_range}, \texttt{internet\_usage}, and \texttt{life\_satisfaction}.
+We can extract only these columns from the dataset to use in our analysis. Using a subset of the data will allow us to focus on the most relevant variables to our research question and reduce the amount of data we need to analyze.
+
+\subsubsection{Data Cleaning}
+
+\par What follows is the data cleaning process, where we will remove any missing or irrelevant data from the dataset.
+Firstly, the questionnaire provided is answered using numbers for each question (for example, (1) is Yes and (2) is No), the values in each column are all numerical in format.
+This means that, excluding \texttt{life\_satisfaction}, we will need to align each number value to its corresponding answer in the questionnaire to make the data more readable and understandable.
+To illustrate, this is Question 4 and 7 from the Academia Sinica questionnaire:
+
+\bigskip
+\footnotesize
+
+\par 4. How old are you?
+\begin{itemize}
+    \item (01)  12-14  years  old
+    \item (02)  15-19  years  old
+    \item (03)  20-29  years  old
+    \item (04)  30-39  years  old
+    \item (05)  40-49  years  old
+    \item (06)  50-59  years  old
+    \item (07)  60-64  years  old
+    \item (08)  Over  65  years  old
+    \item (98)  Refuse  to  answer  [Terminate interview]
+\end{itemize}
+
+\bigskip
+
+\par \footnotesize 7. [Ask those who have used the Internet in the past three months] How many days a week do you use the Internet?
+\begin{itemize}
+    \item (01) Almost every day, and the Internet time is long or the frequency is high every day
+    \item (02) Almost every day, but the Internet time or frequency is not high every day
+    \item (03) Four to six days a week
+    \item (04) One to three days a week
+    \item (05) Internet access only once in more than a week
+    \item (98) Don't know/refuse to answer
+\end{itemize}
+
+
+%Return to normal size, write after this
+\normalsize \bigskip
+
+\par Cleaning will be done by removing any rows with missing data \footnotesize(Don't Know/Refusal to answer) \normalsize in the variables \texttt{age\_range}, \texttt{internet\_usage}, and \texttt{life\_satisfaction}.
+\footnote{This is because respondents are always given the option of refusal to answer, yet, answering \textit{all} relevant questions is necessary for the analysis of the data.}
+\par This removal and subsequent renaming will be done using the Python programming language and the Pandas library for data manipulation and analysis.
+The original dataset contains 15,142 observations. After removing all non-answered observations we are left with 13,535 useful observations for our next step, data analysis.
+
+\subsubsection{Data Analysis}
+\par After the data cleaning process, we will proceed to the data analysis process using the Matplotlib and Seaborn libraries in Python for data visualization.
+This will allow us to quickly visualize the data given its size and the number of variables we are working with.
+\par From here we can follow to group each data observation in order of age group, internet usage, and reported life satisfaction.
+For this visualization the most useful type of plot will be a boxplot.
+More specifically, the plots will be individuallly made according to each age group.
+Internet usage will serve as a descending X-axis, while life satisfaction will be the Y-axis.
+For example a quick plot of the data can be seen in the following boxplot grid:
+\par In the case of our data, there will be a total of 8 boxplots, one for each age group.
+Internet usage will descend from 1 to 5 {\footnotesize(Highest to lowest)},
+and life satisfaction will be the Y-axis from 0 to 10 {\footnotesize(Lowest to highest)}.
+\par A quick visualization of the data can be seen in the following figure:
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=1\textwidth]{images/proto_boxplot.png}
+    \caption{An initial look at the structure of the visualization.}
+\end{figure}
+
+\newpage
+
+\subsection{Goal of Visualization Design}
+
+\par As seen in the previous figure there is not much to be said about the visualization design as it is still in its early stages.
+The visualization must be clear, concise, and easy to understand. To achieve this, design principles such as color, size, and shape will be used to highlight the most important information.
+For example in the following plot, a good use of color can be seen to differentiate between the different categories
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/color_boxplot.jpg}
+    \caption{The use of color is of great visual aid and eases understanding of the data.}
+\end{figure}
+\newpage
+\par A clean and uncluttered layout is also a goal of the final visualization.
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/bad_plot.png}
+    \caption{Designs with no clear structure or layout can be confusing and hard to read.}
+\end{figure}
+
+\section{Preliminary Findings}
+
+\par Using the data provided and simple data summarization techniques we are able find the following preliminary findings:
+\begin{itemize}
+    \item The mean life-satisfaction reported for \textit{all} age-groups is:  7.049.
+\end{itemize}
+Dividing by age groups the mean life-satisfaction is as follows:
+\begin{table}[hb]
+    \centering
+    \resizebox{0.4\textwidth}{!}{%
+    \begin{tabular}{ll}
+    Age Range & Mean Life Satisfaction \\
+    12-14 y/o &     7.604             \\
+    15-19 y/o &     7.210              \\
+    20-29 y/o &     7.166             \\
+    30-39 y/o &     7.156               \\
+    40-49 y/o &     7.125             \\
+    50-59 y/o &     7.032            \\
+    60-69 y/o &     7.155             \\
+    70-79 y/o &     7.263             
+    \end{tabular}%
+    }
+    \end{table}
+\par As well, The preliminary findings show that there is a clear relationship between screen time and life satisfaction among different age groups.
+Yet the difference is not equal for all age-groups.
+
+\end{document}
