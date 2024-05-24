@@ -58,6 +58,11 @@ latex_files/project-tex/*
 # But don't ignore .tex files
 !latex_files/project-tex/*.tex
 
+latex_files/final-project/*
+# But don't ignore .tex files
+!latex_files/final-project/*.tex
+!latex_files/final-project/*.pdf
+
 .venv
 
-*.ini
+desktop.ini
