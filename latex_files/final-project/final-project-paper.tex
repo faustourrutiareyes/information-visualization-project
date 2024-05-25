@@ -1,31 +1,37 @@
 \documentclass[12pt, a4paper]{article}
 \usepackage[a4paper, margin = 1in]{geometry}
+\usepackage[font=scriptsize, labelfont= bf]{caption}
 \usepackage{apacite}
 \usepackage{graphicx}
-\usepackage[font=scriptsize,labelfont=bf]{caption}
+\usepackage{minted}
+\usepackage{amsmath}
 \usepackage[hyphens,spaces,obeyspaces]{url}
 \usepackage[dvipsnames]{xcolor}
-\usepackage{CJKutf8}
+\usepackage[font=scriptsize,labelfont=bf]{caption}
+
 \linespread{1.25}
 
 \title{\textbf{A Study of The Relationship Between Screen Time And Life Satisfaction of Different Age Groups In Taiwan}}
-\author{{\small Fausto Urrutia (B11303091) \and \small Chintara Sahelangi (B12303097) \and \small Yanisa Saengcharoensuklert (B11303085)}}
+\author{
+    {\small Fausto Urrutia (B11303091)} \and 
+    {\small Chintara Sahelangi (B12303097)} \and 
+    {\small Yanisa Saengcharoensuklert (B11303085)}}
 \date{\today}
 
 \begin{document}
 
 \maketitle
+\newpage
 
 
 \section{Methodology}
 
-\subsection{Data}
-\subsubsection{Data Collection}
+\subsection{Data Collection}
 
 %Identify the data source and describe the data collection process. Include the data collection period, the data collection method, and the data collection instrument.
 \par The data is collected from the Center for Survey Research, RCHSS, Academia Sinica and was provided to us in various data formats. The data to be used is the Digital Development Survey data which has been collected from 2002 to 2023.
-For the purposes of this research question we will use the data provided for 2022 and 2023. This is because the data for 2022 and 2023 is the most recent data available and will provide the most up to date information on the relationship between screen time and mental well-being among age-groups.
-\par Along with the relevant data, the original questionnaire used by the research was provided to us for use as reference (Where each question is one variable in the dataset). Therefore, we will first declare which questions from the questionnaire are the most relevant to our research question.
+For the purposes of this research question we will use the data provided for 2022. 
+\par Along with the relevant data, the original questionnaire used by the research was provided to us for use as reference (Where each question is one variable in the dataset).
 \par From the questionnaire, the questions most relevant to the research question are as follows (translated from Chinese):
 \begin{itemize}
     \item 4. How old are you? {\footnotesize(In ranges)}
@@ -34,13 +40,13 @@ For the purposes of this research question we will use the data provided for 202
 \end{itemize}
 \par Hereafter, we will only refer to this questions as variables in the dataset, named by our research group.
 The questions are renamed as variables respectively as follows: \texttt{age\_range}, \texttt{internet\_usage}, and \texttt{life\_satisfaction}.
-We can extract only these columns from the dataset to use in our analysis. Using a subset of the data will allow us to focus on the most relevant variables to our research question and reduce the amount of data we need to analyze.
+We can extract only these columns from the dataset to use in our analysis. Using a subset of the data allows us to focus on the most relevant variables to our research question and reduce the amount of data we need to analyze.
 
-\subsubsection{Data Cleaning}
+\subsection{Data Cleaning}
 
-\par What follows is the data cleaning process, where we will remove any missing or irrelevant data from the dataset.
+\par What follows is the data cleaning process, where missing or irrelevant data is removed from the dataset.
 Firstly, the questionnaire provided is answered using numbers for each question (for example, (1) is Yes and (2) is No), the values in each column are all numerical in format.
-This means that, excluding \texttt{life\_satisfaction}, we will need to align each number value to its corresponding answer in the questionnaire to make the data more readable and understandable.
+This means that, excluding \texttt{life\_satisfaction}, we aligned each number value to its corresponding answer in the questionnaire to make the data more readable and understandable.
 To illustrate, this is Question 4 and 7 from the Academia Sinica questionnaire:
 
 \bigskip
@@ -75,23 +81,146 @@ To illustrate, this is Question 4 and 7 from the Academia Sinica questionnaire:
 %Return to normal size, write after this
 \normalsize \bigskip
 
-\par Cleaning will be done by removing any rows with missing data \footnotesize(Don't Know/Refusal to answer) \normalsize in the variables \texttt{age\_range}, \texttt{internet\_usage}, and \texttt{life\_satisfaction}.
+\par Cleaning was done by removing any rows with missing data \footnotesize(Don't Know/Refusal to answer) \normalsize in the variables \texttt{age\_range}, \texttt{internet\_usage}, and \texttt{life\_satisfaction}.
 \footnote{This is because respondents are always given the option of refusal to answer, yet, answering \textit{all} relevant questions is necessary for the analysis of the data.}
-\par This removal and subsequent renaming will be done using the Python programming language and the Pandas library for data manipulation and analysis.
-The original dataset contains 15,142 observations. After removing all non-answered observations we are left with 13,535 useful observations for our next step, data analysis.
+\par This removal and subsequent renaming was done using the Python programming language and the Pandas library for data manipulation and analysis.
+The original dataset contains 15,142 observations. After removing all non-answered observations we are left with 13,535 useful observations for our next step, data analysis and visualization.
 
-\subsubsection{Data Analysis}
-\par After the data cleaning process, we will proceed to the data analysis process using the Matplotlib and Seaborn libraries in Python for data visualization.
-This will allow us to quickly visualize the data given its size and the number of variables we are working with.
-\par From here we can follow to group each data observation in order of age group, internet usage, and reported life satisfaction.
-For this visualization the most useful type of plot will be a boxplot.
-More specifically, the plots will be individuallly made according to each age group.
-Internet usage will serve as a descending X-axis, while life satisfaction will be the Y-axis.
-For example a quick plot of the data can be seen in the following boxplot grid:
-\par In the case of our data, there will be a total of 8 boxplots, one for each age group.
-Internet usage will descend from 1 to 5 {\footnotesize(Highest to lowest)},
+\subsection{Methology of the Visualization}
+
+\par The visualization was created using the Python programming language and the Matplotlib with Seaborn library for data visualization.
+\par Using these tools we can group each data observation in order of age group, internet usage, and reported life satisfaction.
+That allows to analyze the averages of life satisfaction for each age group and internet usage category.
+The results from this analysis will be further disussed in our Preliminary Findings section.
+\par For our visualization the most useful type of plot would be a boxplot.
+Yet, for size reasons more properly discussed in the Discussion of the Design section, we will use a multi-line chart to represent the data.
+In this case, each line will be individuallly made according to each age group.
+Internet usage will serve as a descending X-axis, while \textit{mean} life satisfaction will be the Y-axis.
+Internet usage can also be renamed in-graph with their in-questionnaire name, instead of its corresponding number, from lowest to highest usage.
 and life satisfaction will be the Y-axis from 0 to 10 {\footnotesize(Lowest to highest)}.
-\par A quick visualization of the data can be seen in the following figure:
+The resulting visualization can be seen in the Preliminary Findings section.
+
+
+\section{Preliminary Findings}
+
+\subsubsection*{Age and Life Satisfaction}
+\par Using the data provided and simple data summarization techniques we are able find the following preliminary findings:
+\begin{itemize}
+    \item The mean life-satisfaction reported for \textit{all} age-groups is:  7.049.
+\end{itemize}
+Dividing by age groups the mean life-satisfaction is as follows\footnote{The \textit{Generation} column is an addition for referencing and consistency with our literature review}:
+\begin{table}[h]
+    \centering{
+        \begin{tabular}{ccc}
+            Age Range & Mean Life Satisfaction & Generation\\ \hline
+            12-14 y/o & 7.604  & Generation Z               \\ \hline
+            15-19 y/o & 7.210  & $\vdots$              \\ \hline
+            20-29 y/o & 7.166  & Early Gen-Z to Late Millenials                \\ \hline
+            30-39 y/o & 7.156  & Millenials               \\ \hline
+            40-49 y/o & 7.125  & Early-Millenials to Late-GenX             \\ \hline
+            50-59 y/o & 7.032  & Gen X              \\ \hline
+            60-69 y/o & 7.155  & Baby Boomers              \\ \hline
+            70-79 y/o & 7.263  & $\vdots$ 
+        \end{tabular}
+    }
+\end{table}
+\par To understand whether there is a significant difference for life satisfaction among different age groups, we will conduct a one-way ANOVA (\textit{Analysis of Variance}) test.
+The test is conducted using the R programming language as follows:
+
+\begin{minted}{R}
+    model <- aov(life_satisfaction_0to10 ~ age_range, data = data)
+    summary(model)  
+>                  Df Sum Sq Mean Sq  F-value Pr(>F)
+>   age_range       1      1  0.7955   0.272  0.602
+>   Residuals   11615  34015  2.9286
+\end{minted}
+We can see from the results above that there is \underline{not} sufficient evidence to suggest that there is a significant difference in life satisfaction among different age groups.
+
+\subsubsection*{Screen Time and Life Satisfaction}
+\par Still, the motivation of this research is to find a relationship between screen time and life satisfaction among different age groups.
+Dividing the data into screen time usage groups, we can see the following preliminary findings:
+\begin{table}[h]
+    \centering{
+        \begin{tabular}{cc}
+            Reported screen time     & Mean Life Satisfaction \\ \hline
+            Everday frequent usage   & 7.171                  \\ \hline
+            Everday infrequent usage & 7.137                  \\ \hline
+            4-6 times a week         & 7.015                  \\ \hline
+            2-3 times a week         & 7.202                  \\ \hline
+            Once a week              & 6.72                   \\ \hline
+        \end{tabular}
+    }
+\end{table}
+\par We can, as well, run a one-way ANOVA test to see if there is a significant difference in life satisfaction among different screen time usage groups.
+\begin{minted}{R}
+    model <- aov(life_satisfaction_0to10 ~ internet_usage, data = data)
+    summary(model)  
+>                  Df Sum Sq Mean Sq F value Pr(>F)
+>   internet_usage     1      4   4.222   1.442   0.23
+>   Residuals          11615  34012   2.928
+\end{minted}
+\par The results above show that there is \underline{not} sufficient evidence to suggest that there is a significant difference in life satisfaction among different screen time usage groups.
+Even when, at a glance, the results from the least usage group (Once a week) seem to be significantly lower than the rest.
+\par The least usage group inabilities to provide a significant difference in life satisfaction could be due to the small sample size of the group.
+After all, the group with the least usage of screen time is expected to be the smallest at only 54 samples.
+This affects its ability to significantly influence the results of the ANOVA test.
+\subsubsection*{Relationship between Screen Time and Life Satisfaction per Age Group}
+
+\par Finally, we can look at the relationship between screen time and life satisfaction among different age groups.
+Given the three-dimensionality of the data we initially proposed this analysis to be conducted through visualization, as it allows for an easier approach to understanding the data.
+\par As follows, the graph is a muti-line graph that shows the relationship between screen time and life satisfaction with a separate line for different age groups.
+Highlighted in brighter colors are the two youngest age groups, 12-14 and 15-19 years old, as well as our second most populous age group (40-49 years old) for a generational comparison.
+\par The general findings through this visualization are as follows:
+\begin{itemize}
+    \item There exists significant variation in life satisfaction among different age groups when they use the internet only once a week.
+          \subitem 40 years old and above have a lower than average life satisfaction than the younger age groups at this usage level.
+          \subitem Yet, people younger than 20 years old have a higher than average life satisfaction at this usage level.
+    \item As weekly usage increses life satisfaction decreases for those below 20 years old, but the opposite is true for those above 40 years old.
+\end{itemize}
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/final_plot.png}
+    \caption{Initial visualization of the relationship between screen time and life satisfaction by age group.}
+\end{figure}
+
+\subsubsection*{Hypothesis testing of effect of internet usage on life satisfaction}
+
+This paper's purpose being the effect of one variable on another, there is value in conducting a simple linear regression model to test whether there exists a significant effect of internet usage on life satisfaction.
+The model is run for each age group and the p-value of the coefficient for internet usage is extracted.
+
+$$\widehat{\text{LifeSatisfaction}}_{\text{i, age}} = \hat{\beta}_0 + \hat{\beta}_1 \times \text{Internet Usage}_{\text{i, age}}$$
+
+\begin{minted}{R}
+    for(age in unique(data$age_range)){
+        #Filter the data in each age group
+        data_filter <- data[data$age_range == age,]
+
+        #Run a simple linear regression model
+        model <- lm(life_satisfaction_0to10 ~ internet_usage, data = data_filter)
+        summ <- summary(model)
+        print(summ$coefficients[8])} #For p-value   
+\end{minted}
+
+\par The results of the hypothesis testing are as follows:
+
+\begin{table}[h]
+    \centering{
+        \begin{tabular}{ccc}
+            Selected group        & P-value test result & Significant/Not Significant at $\alpha = 0.1$ \\ \hline
+            \textbf{For all age groups} & 0.229                  & No                          \\ \hline
+            12-14 y/o                   & 0.762                  & No                           \\ \hline
+            15-19 y/o                   & 0.113                  & No                             \\ \hline
+            20-29 y/o                   & 0.035                  & Yes                            \\ \hline
+            30-39 y/o                   & 0.123                  & No                            \\ \hline
+            40-49 y/o                   & 0.097                  & Yes                            \\ \hline
+            50-59 y/o                   & 0.041                  & Yes                            \\ \hline
+            60-69 y/o                   & 0.016                  & Yes                            \\ \hline
+            70-79 y/o                   & 0.501                  & No
+        \end{tabular}
+    }
+\end{table}
+
+\section{Disussion of the Design}
 
 \begin{figure}[!h]
     \centering
@@ -101,49 +230,69 @@ and life satisfaction will be the Y-axis from 0 to 10 {\footnotesize(Lowest to h
 
 \newpage
 
-\subsection{Goal of Visualization Design}
+\subsection{Purpose and Objective}
+\par The purpose of this paper, and subsequently this graph, is to reveal a relationship between screen time and life satisfaction: a relationship that differs from age group to age group in Taiwan.
+\par Hence, we aim for our graph to also enhance our understanding of the different age demographics in Taiwan and their diverging attitudes towards using electronic devices and going online. This is motivated by the common conception that the older generation has a distinctively negative attitude towards use of electronic devices as compared to the younger generation. Our hypothesis would then be that the older generation’s relationship between screen time and life satisfaction would be more negatively correlated than the younger generation.
+\par However, from the line chart, we can succinctly conclude that that is not the case. Consequently, this graph integrates seamlessly with our report narrative, going against the preconceived notion that the older generation are less happy due to increased average screen time.
 
-\par As seen in the previous figure there is not much to be said about the visualization design as it is still in its early stages.
-The visualization must be clear, concise, and easy to understand. To achieve this, design principles such as color, size, and shape will be used to highlight the most important information.
-For example in the following plot, a good use of color can be seen to differentiate between the different categories
-\begin{figure}[!h]
-    \centering
-    \includegraphics[width=0.6\textwidth]{images/color_boxplot.jpg}
-    \caption{The use of color is of great visual aid and eases understanding of the data.}
-\end{figure}
+\subsection{Target Audience}
+\par The target audience for our visualization is the average reader with little to no specialized expertise on the paper subject and information visualization. Hence, we focus on making our graph as accessible and as unconvoluted as possible. Additionally, this also means minimizing the number of graphs to represent our paper’s topic (correlation between screen time and life satisfaction) and consolidating all important information into one graph that readers can immediately discern the conclusion meant to be understood.
+
+\subsection*{Data Representation}
+\par Our graph focuses on two main variables: average weekly usage of electronic devices and reported life satisfaction. The former is reflected in the x-axis of the graph and the latter, the y-axis of the graph. We interpret average weekly usage of electronic devices as synonymous with screen time and take life satisfaction reported on the survey as a true reflection of the respondent’s feelings.
+\par We chose to represent our data visually through a modified line chart. Conventionally speaking, line charts are not the first choice when it comes to representing a relationship using a graph (this point will be elaborated on in 5.4 Visual Design Principles), however keeping in mind our target audience, we have decided to modify it to suit our data best.
+\par To overcome the limitations of a line chart when it comes to representing a relationship between variables, the data points plotted out on the graph are the average life satisfaction (from a scale of x to x) of each weekly electronic device usage (that ranges from once a week up to every day) by different age groups. Therefore, we bypass the need for a linear regression line as we have approximated the relationship through use of the average responses and plot out an estimate of the two variables’ relationship.
+
+\subsection{Visual Design Principles}
+\par As mentioned previously, the use of a line chart to show a relationship between two variables is not a conventional choice when considering it under a visual design lens. Utilizing scatter plots or bubble charts are far more common in this category while line charts are used for comparison of variables.
+\par However, one thing we have to consider is the fact that the x-axis of this graph is not of quantifiable data, it is qualitative. It is not a continuous range of numbers but instead similar to a scale of frequency. It would not be feasible to graph such a relationship with a scatter plot. That being the case, we decided to use a line chart for our visualization, following the next objective of our graph: to compare the relationship between screen time and life satisfaction by age group.
+\par Additionally, taking into consideration the need for clarity and interpretability, we utilized color coding to highlight the different age demographics taken into account in this research.
+
+\subsection{Comparison With Alternatives}
+\par When comparing our chosen information visualization design with alternative approaches, several key considerations emerged.
+\par Firstly, while we successfully conveyed the relationship between screen time and life satisfaction through the line chart, there are several other charts that also could have been considered. Using a box plot or a violin plot could provide more insight into the spread of life satisfaction at every screen time category. However, when we add our second goal of comparing the relationship by age group, we would need to make small multiples of these charts which could overload the reader and complicate data analysis for the average reader. Another chart alternative would be a bar chart that utilizes the same x-and-y-axes that we used. However, it wouldn’t be intuitive to draw a relationship from a bar chart, especially when we want to then compare it by age as compared to the line chart we used.
+\par Secondly, there is an argument to be made in the usefulness of utilizing small multiples with our paper’s research topic as opposed to consolidating all our findings in one graph. Nevertheless, we deem them unnecessary due to the straightforward analysis required by our target audience.
+\par Consequently, while alternative information visualization designs were examined, the chosen graph effectively communicates the desired insights while maintaining accessibility and clarity for the reader.
+
+%The initial visualization design was a simple boxplot grid.
+
+\section{Conclusion}
+
 \newpage
-\par A clean and uncluttered layout is also a goal of the final visualization.
+\section*{Appendix}
+\subsection*{Example of Data Cleaning}
 
-\begin{figure}[!h]
+\begin{table}[h]
     \centering
-    \includegraphics[width=0.6\textwidth]{images/bad_plot.png}
-    \caption{Designs with no clear structure or layout can be confusing and hard to read.}
-\end{figure}
-
-\section{Preliminary Findings}
-
-\par Using the data provided and simple data summarization techniques we are able find the following preliminary findings:
-\begin{itemize}
-    \item The mean life-satisfaction reported for \textit{all} age-groups is:  7.049.
-\end{itemize}
-Dividing by age groups the mean life-satisfaction is as follows:
-\begin{table}[hb]
-    \centering
-    \resizebox{0.4\textwidth}{!}{%
-    \begin{tabular}{ll}
-    Age Range & Mean Life Satisfaction \\
-    12-14 y/o &     7.604             \\
-    15-19 y/o &     7.210              \\
-    20-29 y/o &     7.166             \\
-    30-39 y/o &     7.156               \\
-    40-49 y/o &     7.125             \\
-    50-59 y/o &     7.032            \\
-    60-69 y/o &     7.155             \\
-    70-79 y/o &     7.263             
-    \end{tabular}%
+    \resizebox{0.8\textwidth}{!}{%
+        \begin{tabular}{lll}
+            \multicolumn{3}{c}{Pre-cleaning Dataset}                                                                                      \\ \hline
+            \multicolumn{1}{|l|}{Age Range} & \multicolumn{1}{l|}{Internet Usage Category} & \multicolumn{1}{l|}{Life Satisfaction Level} \\ \hline
+            03                              & 01                                           & 8                                            \\
+            05                              & 01                                           & 7                                            \\
+            05                              & \textcolor{red}{98}                          & 6                                            \\
+            04                              & 02                                           & 7
+        \end{tabular}%
     }
-    \end{table}
-\par As well, The preliminary findings show that there is a clear relationship between screen time and life satisfaction among different age groups.
-Yet the difference is not equal for all age-groups.
+\end{table}
+$$\vdots$$
+$$\Downarrow$$
+% \usepackage{graphicx}
+\begin{table}[h]
+    \centering
+    \resizebox{\textwidth}{!}{%
+        \begin{tabular}{lll}
+            \multicolumn{3}{c}{Cleaned Dataset}                                                                                           \\ \hline
+            \multicolumn{1}{|l|}{Age Range} & \multicolumn{1}{l|}{Internet Usage Category} & \multicolumn{1}{l|}{Life Satisfaction Level} \\ \hline
+            20-29 Years old                 & Almost every day (High frequency)            & 8                                            \\
+            40-49 Years old                 & Almost every day (High frequency)            & 7                                            \\
+            30-29 Years old                 & Almost every day (Low frequency)             & 7
+        \end{tabular}%
+    }
+\end{table}
+$$\vdots$$
+\par {\footnotesize \textit{Note:} The \textcolor{red}{red} highlighted row is removed from the dataset due to missing data.}
+
+
 
 \end{document}
